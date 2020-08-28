@@ -3,9 +3,18 @@ provider "azurerm" {
     features {}
 }
 
+
 resource "azurerm_resource_group" "tf_test" {
   name = "tfmainrg"
   location = "East US"
+}
+terraform {
+    backend "azurerm" {
+        resource_group_name  = "tf_rg_blobstore"
+        storage_account_name = "tfstroragesuchiornl"
+        container_name       = "tfstate"
+        key                  = "terraform.tfstate"
+    }
 }
 resource "azurerm_container_group" "tfcg_test" {
   name                      = "weatherapi"
